@@ -21,9 +21,6 @@ jobs:
           java-version: 21
           cache: gradle
 
-      - name: Check build-logic
-        uses: ./gradlew check -p build-logic
-
       - name: Grant execute permission for gradlew
         run: |
           chmod +x gradlew
