@@ -54,13 +54,6 @@ jobs:
       - name: Generate coverage reports for Debug variants (only API 30)
         run: ./gradlew createDebugCoverageReport
 
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-reports-${{ matrix.api-level }}
-          path: '**/build/reports/androidTests'
-
       - name: Display local test coverage
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
