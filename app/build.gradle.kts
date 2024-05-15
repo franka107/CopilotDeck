@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.copilot.deck.android.application.jacoco)
-    id("jacoco")
+    alias(libs.plugins.roborazzi)
 }
 
 android {
