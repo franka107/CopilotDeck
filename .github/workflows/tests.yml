@@ -47,11 +47,9 @@ jobs:
         uses: gradle/gradle-build-action@v3
 
       - name: Run local tests (including Roborazzi) for the combined coverage report (only API 30)
-        if: matrix.api-level == 30
         run: ./gradlew testDemoDebugUnitTest -Proborazzi.test.verify=false # Add Prod if we ever add JVM tests for prod
 
       - name: Generate coverage reports for Debug variants (only API 30)
-        if: matrix.api-level == 30
         run: ./gradlew createDemoDebugCombinedCoverageReport
 
       - name: Upload test reports
@@ -61,8 +59,7 @@ jobs:
           name: test-reports-${{ matrix.api-level }}
           path: '**/build/reports/androidTests'
 
-      - name: Display local test coverage (only API 30)
-        if: matrix.api-level == 30
+      - name: Display local test coverage
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         with:
@@ -73,8 +70,7 @@ jobs:
             ${{ github.workspace }}/**/build/reports/jacoco/**/*Report.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload local coverage reports (XML + HTML) (only API 30)
-        if: matrix.api-level == 30
+      - name: Upload local coverage reports (XML + HTML)
         uses: actions/upload-artifact@v4
         with:
           name: coverage-reports
