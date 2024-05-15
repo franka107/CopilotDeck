@@ -14,11 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 21
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 21
+          java-version: 17
           cache: gradle
 
       - name: Grant execute permission for gradlew
@@ -51,8 +51,8 @@ jobs:
       - name: Run local tests (including Roborazzi) for the combined coverage report (only API 30)
         run: ./gradlew testDebugUnitTest -Proborazzi.test.verify=false # Add Prod if we ever add JVM tests for prod
 
-      - name: Generate coverage reports for Debug variants (only API 30)
-        run: ./gradlew createDebugCoverageReport
+      - name: Generate coverage reports for Debug variants
+        run: ./gradlew createDebugCombinedCoverageReport
 
       - name: Display local test coverage
         id: jacoco
