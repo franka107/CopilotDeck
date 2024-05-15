@@ -8,7 +8,14 @@ on:
 
 jobs:
   build:
+    name: "Build APKs"
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
