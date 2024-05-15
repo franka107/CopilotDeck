@@ -21,8 +21,8 @@ jobs:
           java-version: 21
           cache: gradle
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Check build-logic
+        uses: ./gradlew check -p build-logic
 
       - name: Grant execute permission for gradlew
         run: |
@@ -32,20 +32,41 @@ jobs:
       - name: Lint
         run: ./gradlew ktlintCheck
 
-      - name: Gradle Test
-        run: ./gradlew testDebugUnitTest --rerun-tasks --stacktrace
+  androidTest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
 
-      - name: Generate coverage reports for Debug variants
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Run local tests (including Roborazzi) for the combined coverage report (only API 30)
+        if: matrix.api-level == 30
+        run: ./gradlew testDemoDebugUnitTest -Proborazzi.test.verify=false # Add Prod if we ever add JVM tests for prod
+
+      - name: Generate coverage reports for Debug variants (only API 30)
+        if: matrix.api-level == 30
         run: ./gradlew createDemoDebugCombinedCoverageReport
 
-      - name: Generate failure report if required
-        if: failure()
+      - name: Upload test reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: unit-test-results
-          path: '**/build/reports/tests/testDebugUnitTest/'
+          name: test-reports-${{ matrix.api-level }}
+          path: '**/build/reports/androidTests'
 
-      - name: Display local test coverage
+      - name: Display local test coverage (only API 30)
+        if: matrix.api-level == 30
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         with:
@@ -53,6 +74,5 @@ jobs:
           min-coverage-overall: 40
           min-coverage-changed-files: 60
           paths: |
-            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
-            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+            ${{ github.workspace }}/**/build/reports/jacoco/**/*Report.xml
           token: ${{ secrets.GITHUB_TOKEN }}
