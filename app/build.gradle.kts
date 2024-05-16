@@ -1,9 +1,39 @@
+import org.junit.Test
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.copilot.deck.android.application.jacoco)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.sonarqube)
+}
+
+sonarqube {
+    properties {
+        // Required
+        property("sonar.host.url", "https://sonarqube.app.mrmisti.com")
+        property("sonar.token", "sqp_e6fbd9e2ddf969d24b54336c340c8b8aaabfa61b")
+        property("sonar.projectKey", "copilotdeck")
+        property("sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/**/*Report.xml")
+        // Optional
+        property("sonar.sources", "src/main/java")
+        property("sonar.tests", "src/test/java")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.exclusions", "**/*Test*/**," +
+                "*.json," +
+                "**/*test*/**," +
+                "**/.gradle/**," +
+                "**/R.class," +
+                "**/R.class," +
+                "**/R\$*.class," +
+                "**/BuildConfig.*," +
+                "**/Manifest*.*," +
+                "**/*_Hilt*.class," +
+                "**/*Test*.*,"
+
+        )
+    }
 }
 
 android {
@@ -77,4 +107,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlin.test)
 }
