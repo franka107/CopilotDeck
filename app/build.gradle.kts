@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.copilot.deck.android.application.jacoco)
     alias(libs.plugins.roborazzi)
-    alias(libs.plugins.sonarqube)
 }
 
 
