@@ -20,7 +20,7 @@ sonarqube {
         property("sonar.sourceEncoding", "UTF-8")
         property(
             "sonar.exclusions",
-                "**/*Test*/**," +
+            "**/*Test*/**," +
                 "*.json," +
                 "**/*test*/**," +
                 "**/.gradle/**," +
