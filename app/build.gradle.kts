@@ -7,34 +7,6 @@ plugins {
     alias(libs.plugins.sonarqube)
 }
 
-sonarqube {
-    properties {
-        // Required
-        property("sonar.host.url", "https://sonarqube.app.mrmisti.com")
-        property("sonar.token", "sqp_440f90bc3f55fe5198617668b306a82f216e5d69")
-        property("sonar.projectKey", "copilotdeck2")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/**/*Report.xml")
-        // Optional
-        property("sonar.sources", "src/main/java")
-        property("sonar.tests", "src/test/java")
-        property("sonar.sourceEncoding", "UTF-8")
-        property(
-            "sonar.exclusions",
-            "**/*Test*/**," +
-                "*.json," +
-                "**/*test*/**," +
-                "**/.gradle/**," +
-                "**/R.class," +
-                "**/R.class," +
-                "**/R\$*.class," +
-                "**/BuildConfig.*," +
-                "**/Manifest*.*," +
-                "**/*_Hilt*.class," +
-                    "**/build/**," +
-                "**/*Test*.*,",
-        )
-    }
-}
 
 android {
     namespace = "com.mrmisti.copilot.deck"
