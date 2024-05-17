@@ -93,3 +93,6 @@ jobs:
             -Dsonar.pullrequest.branch=${{ github.head_ref }} \
             -Dsonar.pullrequest.base=${{ github.base_ref }} \
             -Dsonar.host.url=https://sonarqube.app.mrmisti.com
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
