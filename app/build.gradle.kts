@@ -1,5 +1,3 @@
-import org.junit.Test
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -20,7 +18,9 @@ sonarqube {
         property("sonar.sources", "src/main/java")
         property("sonar.tests", "src/test/java")
         property("sonar.sourceEncoding", "UTF-8")
-        property("sonar.exclusions", "**/*Test*/**," +
+        property(
+            "sonar.exclusions",
+                "**/*Test*/**," +
                 "*.json," +
                 "**/*test*/**," +
                 "**/.gradle/**," +
@@ -30,8 +30,7 @@ sonarqube {
                 "**/BuildConfig.*," +
                 "**/Manifest*.*," +
                 "**/*_Hilt*.class," +
-                "**/*Test*.*,"
-
+                "**/*Test*.*,",
         )
     }
 }

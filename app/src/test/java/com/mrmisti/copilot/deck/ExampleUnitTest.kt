@@ -1,13 +1,11 @@
 package com.mrmisti.copilot.deck
 
-import kotlinx.coroutines.test.runTest
+import junit.framework.Assert.assertEquals
 import org.junit.Test
-import kotlin.test.assertIs
 
-class MainActivityTest {
-
+class ExampleUnitTest {
     @Test
-    fun `MainTest is boolean`() = runTest {
-        assertIs<Boolean>(true)
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
     }
 }
