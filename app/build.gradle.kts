@@ -30,6 +30,7 @@ sonarqube {
                 "**/BuildConfig.*," +
                 "**/Manifest*.*," +
                 "**/*_Hilt*.class," +
+                    "**/build/**," +
                 "**/*Test*.*,",
         )
     }
