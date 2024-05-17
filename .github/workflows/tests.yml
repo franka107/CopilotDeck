@@ -97,16 +97,24 @@ jobs:
             -Dsonar.pullrequest.base=${{ github.base_ref }} \
             -Dsonar.pullrequest.github.repository=${{ github.repository }}
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarlint-github-action@master
+      - name: Install SonarQube Scanner
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-          args: >
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.pullrequest.github.repository=${{ github.repository }}
-            -Dsonar.reportType=html
-            -Dsonar.outputDirectory=reports
+          repository: ${GITHUB_REPOSITORY}
+          sonarcloud: false
+          sonarQubeUrl: ${{ secrets.SONAR_HOST_URL }}
+          sonarQubeToken: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Display SonarQube results
+        uses: Enrico1996/sonar-results-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          sonarQubeUrl: ${{ secrets.SONAR_HOST_URL }}
+          sonarQubeToken: ${{ secrets.SONAR_TOKEN }}
