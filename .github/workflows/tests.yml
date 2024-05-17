@@ -87,7 +87,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew sonar \
-            -Dsonar.pullrequest.branch={{ github.head_ref }} \
-            -Dsonar.pullrequest.base={{ github.base_ref }} \
-            -Dsonar.pullrequest.key={{ github.event.pull_request.number }} \
+            -Dsonar.pullrequest.branch=${{ github.head_ref }} \
+            -Dsonar.pullrequest.base=${{ github.base_ref }} \
+            -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} \
             -Dsonar.host.url=https://sonarqube.app.mrmisti.com
