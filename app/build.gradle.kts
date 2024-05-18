@@ -11,7 +11,7 @@ sonarqube {
     properties {
         // Required
         property("sonar.host.url", "https://sonarqube.app.mrmisti.com")
-        property("sonar.token", "sqp_440f90bc3f55fe5198617668b306a82f216e5d69")
+        property("sonar.token", "sqp_6b65badc1b504ad43fa8512807436b0678d57294")
         property("sonar.projectKey", "copilotdeck2")
         property("sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/**/*Report.xml")
         // Optional
